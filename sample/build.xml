@@ -16,7 +16,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project name="blank" basedir="../" default="all">
+<project name="blank" basedir="web/WEB-INF/" default="all">
 
 
     <!-- Local system paths -->
@@ -37,10 +37,10 @@
 
     <!-- classpath for Struts 1.3 -->
     <path id="compile.classpath">
-        <pathelement path ="lib/commons-beanutils.jar"/>
-        <pathelement path ="lib/commons-digester.jar"/>
-        <pathelement path ="lib/struts.jar"/>
-        <pathelement path ="${servlet.jar}"/>
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path ="lib-tomcat5/servlet-api.jar"/>
         <pathelement path ="classes"/>
         <pathelement path ="${classpath}"/>
     </path>
