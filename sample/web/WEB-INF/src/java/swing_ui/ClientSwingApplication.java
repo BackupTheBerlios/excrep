@@ -1,14 +1,13 @@
 package swing_ui; 
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,17 +15,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import db.Persistence;
-
 import lg.Client;
 import lg.Session;
 import lg.SessionImpl;
 import multex.Exc;
 import multex.Failure;
+import db.Persistence;
 
 /**An application for management of clients. Uses a Swing UI.*/
 public class ClientSwingApplication {
 
+	private static final Logger logger = Logger.getLogger(Persistence.class.getName());
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	private final Session session = new SessionImpl();
 	
@@ -41,24 +40,24 @@ public class ClientSwingApplication {
     /**The dialog showing a list of clients.*/
 	private final ClientListDialog listDialog = new ClientListDialog(this, session);
 
-    /*package*/ JFrame getEditFrame() {
-		return editFrame;
-	}
-
 
 	/**Creates a Swing user interface for managing clients.*/
-    public static void main(final String[] i_args){
-        new ClientSwingApplication();
-    }//main
-
-
+    public static void main(final String[] args) {
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable(){
+            public void run() {
+                new ClientSwingApplication();
+            }
+        });
+    }
+    
     /**Do not create objects of me!*/
     private ClientSwingApplication(){
 	
 	    //Layout:
     	
-	    final String action = id.getText().equals("") ? "Create" : "Edit";
-	    editFrame.setTitle(action + " Client");
+    	logger.info("id=");
 	    final java.awt.Container container = editFrame.getContentPane();
 	    //container.setLayout(new java.awt.FlowLayout());
 	    container.setLayout(new BorderLayout(5,5));
@@ -86,19 +85,19 @@ public class ClientSwingApplication {
 	    final JButton listButton = new JButton(listAction);
 	    buttonPanel.add(listButton);
 	    container.add(buttonPanel, BorderLayout.SOUTH);
+	    
+	    reset();
 	    	
 	    //Behaviour:
 		
 	    editFrame.addWindowListener( new java.awt.event.WindowAdapter(){
-	      @Override
-		public void windowClosing(final java.awt.event.WindowEvent i_){
-	        System.exit(0);
-	      }
+		    @Override public void windowClosing(final java.awt.event.WindowEvent i_){
+		        System.exit(0);
+		    }
 	    });
 
-	    /*frame.pack();
-	    frame.setVisible(true);*/
-	    SwingUtil.show(editFrame);
+	    editFrame.pack();
+	    editFrame.setVisible(true);
 
     }//SwingFile()
 
@@ -137,7 +136,10 @@ public class ClientSwingApplication {
     		final Client client = session.findClient(getInternalId());
     		session.delete(client);
     		session.commit();
-    	    SwingUtil.show(listDialog);
+            listDialog.reload();
+    	    //SwingUtil.show(listDialog);
+            listDialog.pack();
+            listDialog.setVisible(true);
         }
     };
     
@@ -146,18 +148,31 @@ public class ClientSwingApplication {
 		public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
             System.out.println("List ...");
             listDialog.reload();
-    	    SwingUtil.show(listDialog);
+    	    //SwingUtil.show(listDialog);
+            listDialog.pack();
+            listDialog.setVisible(true);
         }
     };
       
 
+    /*package*/ JFrame getEditFrame() {
+		return editFrame;
+	}
 	//Conversion methods to/from internal types:
 	
 	/*package*/ long getInternalId(){
 		return this.id.getText().length()==0 ? 0 : Long.parseLong(this.id.getText());
 	}
 	/*package*/ void setInternalId(final long id){
-		this.id.setText(Long.toString(id));
+		final String action;
+		if(id==Persistence.INEXISTENT_ID){
+			this.id.setText("");
+			action = "Create";
+		}else{
+			this.id.setText(Long.toString(id));
+		    action = "Edit";
+		}
+	    editFrame.setTitle(action + " Client");
 	}
 	Date getInternalBirthDate() throws ParseException {
 		return df.parse(this.birthDate.getText());
@@ -167,13 +182,22 @@ public class ClientSwingApplication {
 	}
 
 
-	/**Sets all fields to the empty string value.*/
+	/**Sets all fields to the empty string value in order to create a new Client.*/
 	/*package*/ void reset() {
-		id.setText("");
+    	setInternalId(Persistence.INEXISTENT_ID);
 		firstName.setText("");
 		lastName.setText("");
 		birthDate.setText("");
 		phone.setText("");
+	}
+
+	/**Sets all fields to the empty string value in order to create a new Client.*/
+	/*package*/ void edit(final Client c) {
+    	setInternalId(c.getId());
+		firstName.setText(c.getFirstName());
+		lastName.setText(c.getLastName());
+		setInternalBirthDate(c.getBirthDate());
+		phone.setText(c.getPhone());
 	}
 
 	

@@ -14,7 +14,7 @@
     </head>
 
     <body>
-        <html:errors/>
+        <html:errors/> 
         <h1>All Clients</h1>
         
         <table border="1" cellspacing="1">
