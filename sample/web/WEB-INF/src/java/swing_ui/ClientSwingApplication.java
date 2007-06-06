@@ -101,7 +101,7 @@ public class ClientSwingApplication {
 
     }//SwingFile()
 
-    final Action saveAction = new SwingAction("Save") {
+    final Action saveAction = new ExceptionReportingSwingAction("Save") {
         @Override
 		public void actionPerformedWithThrows(ActionEvent evt) {
             System.out.println("Save ...");
@@ -121,7 +121,7 @@ public class ClientSwingApplication {
         }
     };
 
-    final Action resetAction = new SwingAction("Reset"){
+    final Action resetAction = new ExceptionReportingSwingAction("Reset"){
         @Override
 		public void actionPerformedWithThrows(ActionEvent evt) {
             System.out.println("Reset ...");
@@ -129,7 +129,7 @@ public class ClientSwingApplication {
         }
     };
     
-    final Action deleteAction = new SwingAction("Delete"){
+    final Action deleteAction = new ExceptionReportingSwingAction("Delete"){
         @Override
 		public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
             System.out.println("Delete ...");
@@ -143,7 +143,7 @@ public class ClientSwingApplication {
         }
     };
     
-    final Action listAction = new SwingAction("List"){
+    final Action listAction = new ExceptionReportingSwingAction("List"){
         @Override
 		public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
             System.out.println("List ...");

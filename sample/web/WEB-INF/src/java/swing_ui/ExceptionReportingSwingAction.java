@@ -6,17 +6,21 @@ import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 
-/**An action for Swing, which can throw any Exception.*/
-public abstract class SwingAction extends AbstractAction {
+/**An action for Swing, which is allowed to throw any Exception.
+ * If an exception occurs during execution of the method {@link #actionPerformedWithThrows(ActionEvent)}, 
+ * it will be reported to a new modal dialog blocking the causing UI component for further input, until the dialog is closed.
+ * @author Christoph Knabe 2007-06-06
+ */
+public abstract class ExceptionReportingSwingAction extends AbstractAction {
 	
 
 	/**The baseName for locating the exception message text resource bundle.*/ 
 	public static final String BASE_NAME = "MessageResources";
 	
-	/**Initializes a SwingAction.
+	/**Initializes an ExceptionReportingSwingAction.
 	 * @param name how to name the button or menu item, which is associated with the action.
 	*/
-	public SwingAction(final String name){
+	public ExceptionReportingSwingAction(final String name){
 		super(name);
 	}
 

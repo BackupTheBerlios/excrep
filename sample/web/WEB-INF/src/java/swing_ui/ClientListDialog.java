@@ -111,7 +111,7 @@ public class ClientListDialog extends JDialog {
 		
 	}
 
-    final Action editAction = new SwingAction("Edit"){
+    final Action editAction = new ExceptionReportingSwingAction("Edit"){
 		@Override public void actionPerformedWithThrows(final ActionEvent evt) throws Exc {
             System.out.println("Edit row " + ClientListDialog.this.selectedRow);
             if(ClientListDialog.this.selectedRow<0){
@@ -123,7 +123,7 @@ public class ClientListDialog extends JDialog {
         }
     };
     
-    final Action deleteAction = new SwingAction("Delete"){
+    final Action deleteAction = new ExceptionReportingSwingAction("Delete"){
         @Override public void actionPerformedWithThrows(final ActionEvent ev) throws Exc {
             System.out.println("Delete row " + selectedRow);
     		final Client client = clientList.get(selectedRow);
@@ -133,7 +133,7 @@ public class ClientListDialog extends JDialog {
         }
     };
 
-    final Action createAction = new SwingAction("Create"){
+    final Action createAction = new ExceptionReportingSwingAction("Create"){
         @Override public void actionPerformedWithThrows(final ActionEvent ev) throws Exc {
             System.out.println("Create ...");
     		owner.reset();

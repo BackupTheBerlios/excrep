@@ -11,7 +11,7 @@ import lg.SessionImpl;
 import multex.Exc;
 
 /**
- * Contains services global to several Struts actions.
+ * Contains services common to several Struts actions.
  * 
  * @author Christoph Knabe 2007-05-22
  *
@@ -30,7 +30,7 @@ class StrutsUtil {
 	    final HttpSession sessionMut = request.getSession();
 		final Session testResult = (Session)sessionMut.getAttribute(StrutsUtil.SESSION_KEY );
 		if(testResult!=null){return testResult;}
-		//Hier haben wir noch keine LgSession
+		//Here we do not yet have a LgSession
 		final Session newResult = new SessionImpl();
 		sessionMut.setAttribute(StrutsUtil.SESSION_KEY, newResult);
 		return newResult;
