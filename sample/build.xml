@@ -16,7 +16,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project name="blank" basedir="web/WEB-INF/" default="all">
+<project name="excrep" basedir="web/WEB-INF/" default="all">
 
 
     <!-- Local system paths -->
@@ -49,6 +49,8 @@
     <!-- Check timestamp on files -->
     <target name="prepare">
         <tstamp/>
+        <!--For AspectJ compilation by task iajc-->
+        <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties" classpath="lib/aspectjtools.jar"/>
     </target>
 
 
@@ -67,10 +69,17 @@
 
 
     <!-- Normal build of application -->
-    <target name="compile" depends="prepare,resources">
-        <javac srcdir="src/java" destdir="classes">
+    <target name="compile" depends="prepare,resources" description="Compile all sources by javac (Java only)">
+        <javac srcdir="src/java" destdir="classes" source="1.5" encoding="ISO-8859-1">
             <classpath refid="compile.classpath"/>
         </javac>
+    </target>
+
+    <!-- AspectJ build of application -->
+    <target name="aspectj" depends="prepare,resources" description="Compile all sources by iajc (AspectJ)">
+        <iajc srcdir="src/java" destdir="classes" source="1.5" encoding="ISO-8859-1">
+            <classpath refid="compile.classpath"/>
+        </iajc>
     </target>
 
 

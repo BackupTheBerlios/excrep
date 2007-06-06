@@ -1,0 +1,2 @@
+AspectJ 1.5.3 fuer AJDT 1.4.1 fuer Eclipse 3.2.1 
+installiert 2007-06-06 von Knabe
