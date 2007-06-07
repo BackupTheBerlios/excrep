@@ -102,8 +102,7 @@ public class ClientSwingApplication {
     }//SwingFile()
 
     final Action saveAction = new ExceptionReportingSwingAction("Save") {
-        @Override
-		public void actionPerformedWithThrows(ActionEvent evt) {
+        @Override public void actionPerformedWithThrows(ActionEvent evt) {
             System.out.println("Save ...");
 	  		final long id = getInternalId();
 			try {
@@ -122,16 +121,14 @@ public class ClientSwingApplication {
     };
 
     final Action resetAction = new ExceptionReportingSwingAction("Reset"){
-        @Override
-		public void actionPerformedWithThrows(ActionEvent evt) {
+        @Override public void actionPerformedWithThrows(ActionEvent evt) {
             System.out.println("Reset ...");
     		reset();
         }
     };
     
     final Action deleteAction = new ExceptionReportingSwingAction("Delete"){
-        @Override
-		public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
+        @Override public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
             System.out.println("Delete ...");
     		final Client client = session.findClient(getInternalId());
     		session.delete(client);
@@ -144,8 +141,7 @@ public class ClientSwingApplication {
     };
     
     final Action listAction = new ExceptionReportingSwingAction("List"){
-        @Override
-		public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
+        @Override public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
             System.out.println("List ...");
             listDialog.reload();
     	    //SwingUtil.show(listDialog);
@@ -191,7 +187,7 @@ public class ClientSwingApplication {
 		phone.setText("");
 	}
 
-	/**Sets all fields to the empty string value in order to create a new Client.*/
+	/**Sets all fields to a value taken from the corresponding field in the Client.*/
 	/*package*/ void edit(final Client c) {
     	setInternalId(c.getId());
 		firstName.setText(c.getFirstName());
