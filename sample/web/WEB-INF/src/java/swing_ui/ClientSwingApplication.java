@@ -102,7 +102,7 @@ public class ClientSwingApplication {
     }//SwingFile()
 
     final Action saveAction = new ExceptionReportingSwingAction("Save") {
-        @Override public void actionPerformedWithThrows(ActionEvent evt) {
+        @Override public void actionPerformedWithThrows(ActionEvent ev) {
             System.out.println("Save ...");
 	  		final long id = getInternalId();
 			try {
@@ -128,7 +128,7 @@ public class ClientSwingApplication {
     };
     
     final Action deleteAction = new ExceptionReportingSwingAction("Delete"){
-        @Override public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
+        @Override public void actionPerformedWithThrows(ActionEvent ev) throws Exc {
             System.out.println("Delete ...");
     		final Client client = session.findClient(getInternalId());
     		session.delete(client);
@@ -141,7 +141,7 @@ public class ClientSwingApplication {
     };
     
     final Action listAction = new ExceptionReportingSwingAction("List"){
-        @Override public void actionPerformedWithThrows(ActionEvent evt) throws Exc {
+        @Override public void actionPerformedWithThrows(ActionEvent ev) throws Exc {
             System.out.println("List ...");
             listDialog.reload();
     	    //SwingUtil.show(listDialog);
