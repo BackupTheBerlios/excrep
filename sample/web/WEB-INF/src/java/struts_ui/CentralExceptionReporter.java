@@ -64,6 +64,12 @@ public class CentralExceptionReporter extends ExceptionHandler {
     }
 
     private static final ServiceAction serviceAction = new ServiceAction();
+    
+	public static ResourceBundle getBundle(String bundleName,
+			final HttpServletRequest request) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(bundleName);
+		return resourceBundle;
+	}
 
     /**Returns from the session the last exception, or null.*/
     public static Throwable getException(
