@@ -42,7 +42,7 @@ import org.apache.struts.config.ExceptionConfig;
 public class CentralExceptionReporter extends ExceptionHandler {
 
 
-    private static final Logger logger = Logger.getLogger("");
+    private static final Logger logger = Logger.getLogger(CentralExceptionReporter.class.getName());
 
     private static final String _myClassName = CentralExceptionReporter.class.getName();
 
@@ -118,18 +118,29 @@ throws ServletException
     request.getSession().setAttribute(EXCEPTION_KEY, ex);
 
     //Store exception messages for Struts display on input page:
-    final ActionForward globalErrorForward = mapping.findForward("error");
-    final String globalErrorPage = globalErrorForward.getPath();
+    /*final ActionForward globalErrorForward = mapping.findForward("error");
+    final String globalErrorPage = globalErrorForward.getPath();*/
+    
+    //ohne Umweg über struts-config.xml:
+    //final String globalErrorPage = "/system/errorPage.jsp";
+
+    final String contextPath = request.getContextPath();
+    final String contextRelativePath = "/system/errorPage.jsp";
+    final String absolutePath = contextPath + contextRelativePath;
+    final ActionForward globalErrorForward = new ActionForward(contextRelativePath);
+    globalErrorForward.setProperty("contextRelative", "true"); //instead of module-relative
+    
     final ResourceBundle bundle = getRequestLocaleBundle(BASE_NAME, request);
     final ActionMessages errors = new ActionErrors();
     errors.add( ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
         ae.getKey(),
-        getMessagesAsHtml(ex, bundle), globalErrorPage
+        getMessagesAsHtml(ex, bundle), absolutePath
     ));
     serviceAction.mySaveErrors(request, errors);
     //Forward to messages display:
-    final ActionForward inputForward = mapping.getInputForward();
-    return inputForward!=null ? inputForward : globalErrorForward;
+    final ActionForward result = mapping.getInput()!=null ? mapping.getInputForward() : globalErrorForward;
+    logger.info("Returning " + result);
+    return result;
 }
 
     /**Gets the named resource bundle suitable for the actual Locale selected by the user.

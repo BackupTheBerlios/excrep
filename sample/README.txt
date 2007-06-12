@@ -1,17 +1,34 @@
 Quick-Start FAQ
 ===============
 
-What's Struts Blank?
+The Central Exception Reporting Sample Application.
 
-- It's an "empty" application provided to help you get started on your own project. Just copy the struts-blank.war to a new WAR file using the name for your application. Place it in your container's "webapp" folder (or equivalent), and let your container auto-deploy the application. Edit the skeleton configuration files as needed, restart your container, and you are on your way! (You can find the application.properties file with this message in the /WEB-INF/src/java/resources folder.)
+- It's a little application for managing clients. You can create, edit, list, and delete clients.
+- It is derived from the Struts Blank application.
 
-Where do I put my own code?
+What platform does this application need?
 
-- The build file is setup so that you can place your own packages anywhere under the WEB-INF/src directory. 
+- JDK 5.0, and
+- AspectJ 5
+- Tomcat 5 (Servlet 2.4 and JSP 2.0 container)
+- Struts 1.3.8 (contained in folder WEB-INF/lib)
 
-What are the references to /javasoft/lib in the build.xml about?
+How do I start the web application?
 
-- Most Struts applications use some common JAR files. This is one common location for these on a development computer, but another may be used
+- type   ant compile  at the command prompt.
+- Deploy the directory excrep to the web container as context /excrep
+- Browse http://localhost:8180/excrep
+- Elect "Create Client"
+- Type in and Save some clients, they will be stored in file Persistence.ser in the working directory
+- Observe exception messages after data errors (e.g. empty birth date)
+- Click button List
+- Provoke a low-level exception by making the file Persistence.ser read-only and trying to Save a client.
+
+How do i start the Swing application?
+
+- Start java with swing_ui.ClientSwingApplication as main class and WEB-INF/classes and all .jar files
+from WEB-INF/lib in the classpath. 
+- You can do the same things for testing the Swing application.
 
 What targets does the build file accept?
 
@@ -20,8 +37,6 @@ What targets does the build file accept?
 - "compile" to rebuild the Java class files and copy over the resource and configuration files. 
 
 - "project" to also generate the Javadoc.
-
-- "dist" to create a binary distribution.
 
 - "all" for a clean rebuild the project and binary distributions.
 

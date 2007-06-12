@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lg.Client;
 import lg.Session;
+import multex.Exc;
 import multex.Failure;
 
 import org.apache.struts.action.ActionForm;
@@ -75,11 +76,16 @@ public class ClientAction extends DispatchAction {
 		form.setPhone(c.getPhone());
 		return StrutsUtil.getInputForward(actionMapping);
 	}
-	
-	/** Will be called, if the client form shall be displayed emptily, in order to create a new Client*/
-	public ActionForward create(final ActionMapping actionMapping, final ActionForm actionForm, final HttpServletRequest arg2, final HttpServletResponse arg3) throws Exception {
-		return StrutsUtil.getInputForward(actionMapping);
-	}
+
+    /** Will be called, if the client form shall be displayed emptily, in order to create a new Client*/
+    public ActionForward create(final ActionMapping actionMapping, final ActionForm actionForm, final HttpServletRequest arg2, final HttpServletResponse arg3) throws Exception {
+        return StrutsUtil.getInputForward(actionMapping);
+    }
+    
+    /** Will be called, if the client form shall be displayed emptily, in order to create a new Client*/
+    public ActionForward Throw(final ActionMapping actionMapping, final ActionForm actionForm, final HttpServletRequest arg2, final HttpServletResponse arg3) throws Exception {
+        throw new Exc("Das ist ein Demo-Fehler ohne Ursache");
+    }
 	
 	
 

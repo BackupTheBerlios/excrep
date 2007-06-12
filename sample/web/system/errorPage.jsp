@@ -62,7 +62,7 @@
     : CentralExceptionReporter.getException(session) //stored by application
     ;
     CentralExceptionReporter.setException(session, messagesException);
-    final ResourceBundle responseBundle = CentralExceptionReporter.getBundle(CentralExceptionReporter.BASE_NAME, request);
+    final ResourceBundle responseBundle = CentralExceptionReporter.getRequestLocaleBundle(CentralExceptionReporter.BASE_NAME, request);
     %>
     <div class="inPageErrorMessage">
         <%= CentralExceptionReporter.getMessagesAsHtml(messagesException, responseBundle) %>

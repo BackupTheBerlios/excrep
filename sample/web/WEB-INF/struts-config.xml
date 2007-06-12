@@ -21,16 +21,8 @@
           "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <!--
-     This is a blank Struts configuration file with an example
-     welcome action/page and other commented sample elements.
-
-     Struts Validator is configured using the factory defaults
-     and is ready-to-use.
-
-     NOTE: If you have a generator tool to create the corresponding Java classes
-     for you, you could include the details in the "form-bean" declarations.
-     Otherwise, you would only define the "form-bean" element itself, with the
-     corresponding "name" and "type" attributes, as shown here.
+     This is a sample Struts application for demonstrating the concept of
+     central exception reporting. Derived from the Struts Blank Application.
 -->
 
 
@@ -47,6 +39,7 @@
 <!-- ========================================= Global Exception Definitions -->
 
     <global-exceptions>
+        <!-- Let all exceptions be reported by the CentralExceptionReporter -->
         <exception
             type="java.lang.Exception"
             handler="struts_ui.CentralExceptionReporter"
@@ -54,43 +47,36 @@
         />
     </global-exceptions>
 
-
 <!-- =========================================== Global Forward Definitions -->
 
     <global-forwards>
         <!-- Default forward to "Welcome" action -->
         <!-- Demonstrates using index.jsp to forward -->
         <forward name="welcome" path="/Welcome.do" />
-        <forward name="error"   path="system/errorPage.do" />
     </global-forwards>
 
 
 <!-- =========================================== Action Mapping Definitions -->
 
     <action-mappings>
-            <!-- Default "Welcome" action -->
-            <!-- Forwards to Welcome.jsp -->
+    
+        <!-- Indicate for each action element the attribute input="inputPage.jsp", 
+            if you want exception messages to be reported firstly on the input page! 
+        -->
+        <!-- Default "Welcome" action, forwards to Welcome.jsp -->
         <action
             path="/Welcome"
             forward="/Welcome.jsp"
         />
-        <action
-            path="/**/system/errorPage"
-            forward="/system/errorPage.jsp"
-        />
 
         <!-- Client Management Actions 
-        <action    path="/client/ClientShow" forward="/client/Client.jsp" />
-        <action path="/saveSubscription" type="org.apache.struts.actions.DispatchAction" name="subscriptionForm" scope="request" input="/subscription.jsp" parameter="method"/> 
-        
-        
         -->
         <action    path="/client/Client"
                    type="struts_ui.ClientAction"
                    name="struts_ui.ClientForm"
                    scope="request"
-                   input="/client/Client.jsp"
                    parameter="command"
+                   input="/client/Client.jsp"
         >
             <forward name="list" path="/client/ClientList.do?command=list" />
         </action>
@@ -108,30 +94,6 @@
         >
         </action>
         
-    <!-- sample input and input submit actions
-
-        <action
-            path="/Input"
-            type="org.apache.struts.actions.ForwardAction"
-            parameter="/pages/Input.jsp"/>
-
-        <action
-            path="/InputSubmit"
-            type="app.InputAction"
-            name="inputForm"
-            scope="request"
-            validate="true"
-            input="/pages/Input.jsp"/>
-
-            <action
-                path="/edit*"
-                type="app.Edit{1}Action"
-                name="inputForm"
-                scope="request"
-                validate="true"
-                input="/pages/Edit{1}.jsp"/>
-
-    end samples -->
     </action-mappings>
 
 
@@ -144,8 +106,7 @@
 
 <!-- =============================================== Plug Ins Configuration -->
 
-  <plug-in className="struts_ui.ActionPlugIn">
-  </plug-in>
+  <plug-in className="struts_ui.ActionPlugIn"/>
   
   <!-- ======================================================= Tiles plugin -->
   <!--
