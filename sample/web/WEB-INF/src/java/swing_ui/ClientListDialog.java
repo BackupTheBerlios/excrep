@@ -40,13 +40,13 @@ public class ClientListDialog extends JDialog {
 
 	private static final long serialVersionUID = -8591653225035745301L;
 
-	private final ClientSwingApplication owner;
-	private final Session session;
+	protected final ClientSwingApplication owner;
+	protected final Session session;
 	private final AbstractTableModel dataModel = new DataModel();
 	private final JTable table = new JTable();
-	private int selectedRow = -1; //initially no row is selected
+	protected int selectedRow = -1; //initially no row is selected
 	
-	private List<Client> clientList;
+	protected List<Client> clientList;
 	
 	public ClientListDialog(final ClientSwingApplication owner, final Session session){
 		super(owner.getEditFrame(), "Client List");
@@ -55,8 +55,7 @@ public class ClientListDialog extends JDialog {
 
         this.table.setPreferredScrollableViewportSize(new Dimension(500, 100));
         final JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.add(new JMenuItem(this.editAction));
-        popupMenu.add(new JMenuItem(this.deleteAction));
+        initPopupMenu(popupMenu);
 
         //Add listener to the table so the popup menu can come up.
         final MouseListener popupListener = new PopupListener(popupMenu);
@@ -67,10 +66,19 @@ public class ClientListDialog extends JDialog {
         final java.awt.Container contentPane = getContentPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 	    final JPanel buttonPanel = new JPanel(new FlowLayout());
-	    buttonPanel.add(new JButton(this.createAction));
+	    initButtons(buttonPanel);
+		contentPane.add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	protected void initButtons(final JPanel buttonPanel) {
+		buttonPanel.add(new JButton(this.createAction));
 	    buttonPanel.add(new JButton(this.editAction));
 	    buttonPanel.add(new JButton(this.deleteAction));
-		contentPane.add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	protected void initPopupMenu(final JPopupMenu popupMenu) {
+		popupMenu.add(new JMenuItem(this.editAction));
+        popupMenu.add(new JMenuItem(this.deleteAction));
 	}
 	
 	/*package*/ void reload() throws Exc {

@@ -28,10 +28,7 @@ public abstract class ExceptionReportingSwingAction extends AbstractAction {
 	    try{
 	    	actionPerformedWithThrows(ev);
 	    }catch(Exception ex){
-			final java.awt.Component sourceComponent = (java.awt.Component)ev.getSource();
-			final Locale defaultLocale = Locale.getDefault();
-			final ResourceBundle bundle = ResourceBundle.getBundle(BASE_NAME, defaultLocale);
-			multex.Swing.report(sourceComponent, ex, bundle);
+	    	CentralExceptionReporter.reportException(ev, ex);
 		}
 	}
 	

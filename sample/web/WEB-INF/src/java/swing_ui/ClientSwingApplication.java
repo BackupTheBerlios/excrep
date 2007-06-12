@@ -27,19 +27,18 @@ public class ClientSwingApplication {
 
 	private static final Logger logger = Logger.getLogger(Persistence.class.getName());
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	private final Session session = new SessionImpl();
+	protected final Session session = new SessionImpl();
 	
     private final JFrame editFrame = new JFrame();
     private final int width = 20;
     private final JLabel id =  new JLabel();
-    private final JTextField firstName = new JTextField("", width);
-    private final JTextField lastName  = new JTextField("", width);
+    protected final JTextField firstName = new JTextField("", width);
+    protected final JTextField lastName  = new JTextField("", width);
     private final JTextField birthDate  = new JTextField("", width);
-    private final JTextField phone  = new JTextField("", width);
+    protected final JTextField phone  = new JTextField("", width);
 
     /**The dialog showing a list of clients.*/
 	private final ClientListDialog listDialog = new ClientListDialog(this, session);
-
 
 	/**Creates a Swing user interface for managing clients.*/
     public static void main(final String[] args) {
@@ -53,7 +52,7 @@ public class ClientSwingApplication {
     }
     
     /**Do not create objects of me!*/
-    private ClientSwingApplication(){
+    protected ClientSwingApplication(){
 	
 	    //Layout:
     	
@@ -76,14 +75,7 @@ public class ClientSwingApplication {
 	    container.add(fieldPanel, BorderLayout.CENTER);
 
 	    final JPanel buttonPanel = new JPanel(new FlowLayout());
-	    final JButton saveButton = new JButton(saveAction);
-	    buttonPanel.add(saveButton);
-	    final JButton resetButton = new JButton(resetAction);
-	    buttonPanel.add(resetButton);
-	    final JButton deleteButton = new JButton(deleteAction);
-	    buttonPanel.add(deleteButton);
-	    final JButton listButton = new JButton(listAction);
-	    buttonPanel.add(listButton);
+	    addButtons(buttonPanel);	    
 	    container.add(buttonPanel, BorderLayout.SOUTH);
 	    
 	    reset();
@@ -101,7 +93,18 @@ public class ClientSwingApplication {
 
     }//SwingFile()
 
-    final Action saveAction = new ExceptionReportingSwingAction("Save") {
+    protected void addButtons(JPanel buttonPanel) {
+    	JButton saveButton = new JButton(saveAction);
+	    buttonPanel.add(saveButton);
+	    JButton resetButton = new JButton(resetAction);
+	    buttonPanel.add(resetButton);
+	    JButton deleteButton = new JButton(deleteAction);
+	    buttonPanel.add(deleteButton);
+	    JButton listButton = new JButton(listAction);
+	    buttonPanel.add(listButton);
+	}
+
+	final Action saveAction = new ExceptionReportingSwingAction("Save") {
         @Override public void actionPerformedWithThrows(ActionEvent ev) {
             System.out.println("Save ...");
 	  		final long id = getInternalId();
