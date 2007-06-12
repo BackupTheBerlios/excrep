@@ -104,6 +104,6 @@ public class AspectClientSwingApplication extends ClientSwingApplication {
 	}
 
 	/** Do not create objects of me! */
-	public AspectClientSwingApplication() {
+	private AspectClientSwingApplication() {
 	}// SwingFile()
 }
