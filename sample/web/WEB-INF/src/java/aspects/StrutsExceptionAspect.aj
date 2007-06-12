@@ -14,11 +14,12 @@ import org.apache.struts.config.ExceptionConfig;
 
 import struts_ui.CentralExceptionReporter;
 
+
 /**
  * @author Siamak Haschemi sd&amp;m AG, 2007
  * 
  */
-public aspect ExceptionAspect {
+public aspect StrutsExceptionAspect {
 	private CentralExceptionReporter centralExceptionReporter = new CentralExceptionReporter();
 
 	pointcut op(ActionMapping am, ActionForm af, HttpServletRequest req,
