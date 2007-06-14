@@ -4,6 +4,7 @@ Quick-Start FAQ
 The Central Exception Reporting Sample Application.
 
 - It's a little application for managing clients. You can create, edit, list, and delete clients.
+- You can run it in 4 variants:  {Struts|Swing} * {Java|AspectJ}
 - It is derived from the Struts Blank application.
 
 What platform does this application need?
@@ -13,9 +14,9 @@ What platform does this application need?
 - Tomcat 5 (Servlet 2.4 and JSP 2.0 container)
 - Struts 1.3.8 (contained in folder WEB-INF/lib)
 
-How do I start the web application?
+How do I run and test the web application?
 
-- type   ant compile  at the command prompt.
+- type   ant java   or   ant aspectj   at the command prompt.
 - Deploy the directory excrep to the web container as context /excrep
 - Browse http://localhost:8180/excrep
 - Elect "Create Client"
@@ -24,17 +25,22 @@ How do I start the web application?
 - Click button List
 - Provoke a low-level exception by making the file Persistence.ser read-only and trying to Save a client.
 
-How do i start the Swing application?
+How do i run and test the Swing application?
 
-- Start java with swing_ui.ClientSwingApplication as main class and WEB-INF/classes and all .jar files
-from WEB-INF/lib in the classpath. 
-- You can do the same things for testing the Swing application.
+- type   ant runJ   or   ant runA   at the command prompt.
+- You can do the same things as above for testing the Swing application.
 
 What targets does the build file accept?
 
 - "clean" to delete the old class, resource, and configuration files. 
 
-- "compile" to rebuild the Java class files and copy over the resource and configuration files. 
+- "java" to rebuild the Java class files and copy over the resource and configuration files. 
+
+- "aspectj" to rebuild the Java class files by the AspectJ compiler and copy over the resource and configuration files. 
+
+- "runJ" to compile and run the Swing app using only Java
+
+- "runA" to compile and run the Swing app using AspectJ
 
 - "project" to also generate the Javadoc.
 

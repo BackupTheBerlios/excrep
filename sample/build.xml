@@ -68,20 +68,31 @@
     </target>
 
 
-    <!-- Normal build of application -->
-    <target name="compile" depends="prepare,resources" description="Compile all sources by javac (Java only)">
+    <!-- Compilation of applications using only standard Java -->
+    <target name="java" depends="prepare,resources" description="Compile all sources by javac (Java only)">
         <javac srcdir="src/java" destdir="classes" source="1.5" encoding="ISO-8859-1">
             <classpath refid="compile.classpath"/>
         </javac>
     </target>
 
-    <!-- AspectJ build of application -->
+    <!-- Compilation of applications using AspectJ -->
     <target name="aspectj" depends="prepare,resources" description="Compile all sources by iajc (AspectJ)">
         <iajc srcdir="src/java" destdir="classes" source="1.5" encoding="ISO-8859-1">
             <classpath refid="compile.classpath"/>
         </iajc>
     </target>
 
+    <target name="runJ" depends="java" description="Run the standard Java Swing application">
+        <java classname="swing_ui.ClientSwingApplication" fork="true" failonerror="true">
+            <classpath refid="compile.classpath"/>
+        </java>
+    </target>
+	
+    <target name="runA" depends="aspectj" description="Run the AspectJ Swing application">
+        <java classname="swing_ui.AspectClientSwingApplication" fork="true" failonerror="true">
+            <classpath refid="compile.classpath"/>
+        </java>
+    </target>
 
     <!-- Remove classes directory for clean build -->
     <target name="clean"
@@ -112,7 +123,7 @@
 
 
     <!-- Build entire project -->
-    <target name="project" depends="clean,prepare,compile,javadoc"/>
+    <target name="project" depends="clean,prepare,java,javadoc"/>
 
 
     <!-- Create binary distribution -->

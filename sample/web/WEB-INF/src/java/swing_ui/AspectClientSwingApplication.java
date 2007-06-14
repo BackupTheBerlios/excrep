@@ -1,6 +1,7 @@
 package swing_ui;
 
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -14,6 +15,8 @@ import db.Persistence;
 
 /** An application for management of clients. Uses a Swing UI. */
 public class AspectClientSwingApplication extends ClientSwingApplication {
+    private static final Logger logger = Logger.getLogger(AspectClientSwingApplication.class.getName());
+    
 	private final AspectClientListDialog listDialog = new AspectClientListDialog(this, session);
 
 	/** Creates a Swing user interface for managing clients. */
@@ -103,7 +106,9 @@ public class AspectClientSwingApplication extends ClientSwingApplication {
 		buttonPanel.add(listButton);
 	}
 
-	/** Do not create objects of me! */
+	/** Let only me create objects of me! */
 	private AspectClientSwingApplication() {
-	}// SwingFile()
+        logger.info("");
+	}
+    
 }

@@ -36,7 +36,7 @@ public class Persistence {
 
 	/** Initializes this Persistence from file FILENAME, or helpwise empty. */ 
 	public Persistence() {
-		logger.info("new Persistence()");
+		logger.info("");
 		final File storage = new File(FILENAME);
 		if(!storage.exists()){
 			this.pool = Collections.checkedSet(new HashSet<Client>(), Client.class);

@@ -25,8 +25,9 @@ import db.Persistence;
 /**An application for management of clients. Uses a Swing UI.*/
 public class ClientSwingApplication {
 
-	private static final Logger logger = Logger.getLogger(Persistence.class.getName());
+    private static final Logger logger = Logger.getLogger(ClientSwingApplication.class.getName());
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    
 	protected final Session session = new SessionImpl();
 	
     private final JFrame editFrame = new JFrame();
@@ -51,12 +52,11 @@ public class ClientSwingApplication {
         });
     }
     
-    /**Do not create objects of me!*/
+    /**Let only me or my descendants create objects of me!*/
     protected ClientSwingApplication(){
-	
 	    //Layout:
     	
-    	logger.info("id=");
+    	logger.info("");
 	    final java.awt.Container container = editFrame.getContentPane();
 	    //container.setLayout(new java.awt.FlowLayout());
 	    container.setLayout(new BorderLayout(5,5));
