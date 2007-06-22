@@ -1,0 +1,8 @@
+Christoph Knabe (www.tfh-berlin.de/~knabe) ist Professor für Softwaretechnik/Programmierung an der Technischen Fachhochschule Berlin. Zuvor war er Software-Entwickler bei der PSI GmbH, Berlin.
+Seine Interessen gelten der Aspektorientierung, Ausnahmebehandlung, Qualitätssicherung und Performance-Optimierung.
+
+Fazit:
+
+- Die Zentralisierung des Ausnahmemeldens macht Anwendungen robust und diagnosestark bei deutlich erhöhter Bequemlichkeit für die Anwendungsprogrammierer.
+- Dieses Ziel ist mit AspectJ auch ohne tiefere Kenntnise des Oberflächenrahmenwerks erreichbar.
+- Mit AspectJ kommt man dabei auch ohne spezielle Richtlinien für die Programmierung von Benutzeraktionen aus.

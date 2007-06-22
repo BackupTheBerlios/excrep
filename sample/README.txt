@@ -1,6 +1,7 @@
 Quick-Start FAQ
 ===============
-
+                                                          Christoph Knabe, 2007-06-22
+                                                          
 The Central Exception Reporting Sample Application.
 
 - It's a little application for managing clients. You can create, edit, list, and delete clients.
