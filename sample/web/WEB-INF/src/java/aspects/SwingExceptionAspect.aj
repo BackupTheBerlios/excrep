@@ -4,6 +4,7 @@
 package aspects;
 
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 
 import swing_ui.CentralExceptionReporter;
 import swing_ui.ExceptionReportingSwingAction;
@@ -13,7 +14,7 @@ import swing_ui.ExceptionReportingSwingAction;
  * 
  */
 public aspect SwingExceptionAspect {
-	pointcut op(ActionEvent ev) : execution(void javax.swing.AbstractAction.actionPerformed(ActionEvent)) 
+	pointcut op(ActionEvent ev) : execution(void AbstractAction+.actionPerformed(ActionEvent)) 
 		&& args(ev) && !within(ExceptionReportingSwingAction+);
 
 	void around(ActionEvent ev) : op(ev) {		
