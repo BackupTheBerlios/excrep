@@ -24,9 +24,9 @@
 
 
     <!-- Project settings -->
-    <property name="project.title" value="Apache Struts Blank "/>
-    <property name="project.distname" value="blank"/>
-    <property name="project.version" value="1.3"/>
+    <property name="project.title" value="The Central Exception Reporting Sample Application"/>
+    <property name="project.distname" value="excrep"/>
+    <property name="project.version" value="1.0"/>
 
 
     <!-- Path settings -->
@@ -43,6 +43,13 @@
         <pathelement path ="classes"/>
         <pathelement path ="${classpath}"/>
     </path>
+	
+    <!-- classpath for multex.tool.ExceptionMessagesDoclet  -->
+    <path id="ExceptionMessagesDoclet.classpath">
+        <fileset dir="lib">
+            <include name="multex*.jar"/>
+        </fileset>
+    </path>
 
 
     <!-- Check timestamp on files -->
@@ -54,7 +61,11 @@
 
 
     <!-- Copy any resource or configuration files -->
-    <target name="resources">
+    <target name="resources" description="Copy resource files and collect all exception message texts from the source code into one resource file">
+        <property name="messageResourceFile" value="classes/MessageResources.properties"/>
+        <delete quiet="true">
+            <fileset file="${messageResourceFile}"/>
+        </delete>
         <copy todir="classes" includeEmptyDirs="no">
             <fileset dir="src/java">
             <patternset>
@@ -64,6 +75,22 @@
             </patternset>
             </fileset>
         </copy>
+        <fileset id="allSourceFiles" dir="src">
+            <include name="**/*.java"/>
+        </fileset>
+        <javadoc
+        	access="private"
+        	classpathref="compile.classpath"
+        	doclet="multex.tool.ExceptionMessagesDoclet"
+        	docletpathref="ExceptionMessagesDoclet.classpath"
+        	source="1.5"
+        	useexternalfile="yes"
+        >
+        	<arg value="-out"/> 
+        	<arg file="${messageResourceFile}"/> <!--Message texts will be appended to this file.-->
+            <fileset refid="allSourceFiles"/>  
+    	</javadoc>
+
     </target>
 
 
