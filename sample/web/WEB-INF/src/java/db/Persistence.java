@@ -31,7 +31,7 @@ public class Persistence {
 	
 	private static long lastId = INEXISTENT_ID;
 	
-	private Set<Client> pool;
+	private final Set<Client> pool;
 	
 
 	/** Initializes this Persistence from file FILENAME, or helpwise empty. */ 
