@@ -67,7 +67,7 @@ Why didn't the changes to my java/MessageResources.properties or other resource 
 
 
 <!--
-    D:\Java\jakarta-tomcat-5.0.27\conf\Catalina\localhost\excrep.xml
+    D:\Java\jakarta-tomcat-5.5\conf\Catalina\localhost\excrep.xml
     Context configuration file for the Central Exception Reporting Sample Application
     Knabe 04-09-29
 -->
