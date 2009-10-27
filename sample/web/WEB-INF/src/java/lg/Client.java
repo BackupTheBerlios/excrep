@@ -3,6 +3,8 @@ package lg;
 import java.io.Serializable;
 import java.util.Date;
 
+import static multex.MultexUtil.create;
+
 /**A Client to be managed*/
 public class Client implements Serializable {
 	
@@ -26,13 +28,13 @@ public class Client implements Serializable {
 		
 	public void setAttributes(final String firstName, final String lastName, final Date birthDate, final String phone) throws IncredibleBirthDateExc, EmptyPhoneNumberExc, PhoneNumberFormatExc {
 		if( birthDate.before(beginDate) || birthDate.after(new Date()) ){
-			throw new IncredibleBirthDateExc(birthDate);
+			throw create(IncredibleBirthDateExc.class, birthDate);
 		}
 		if(phone.length()<=0){
 			throw new EmptyPhoneNumberExc();
 		}
 		if(!phone.matches(ALLOWED_PHONE_PATTERN)){
-			throw new PhoneNumberFormatExc(phone, ALLOWED_PHONE_CHARS);
+			throw create(PhoneNumberFormatExc.class, phone, ALLOWED_PHONE_CHARS);
 		}
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -61,22 +63,12 @@ public class Client implements Serializable {
 	}
 
 	/**Date {0,date,long} is not credible as a client''s birth date*/
-	public static class IncredibleBirthDateExc extends multex.Exc {
-		public IncredibleBirthDateExc(Date birthDate) {
-			super(null, birthDate);
-		}
-	}
+	public static class IncredibleBirthDateExc extends multex.Exc {}
 
 	/**Phone number is empty*/
-	public static class EmptyPhoneNumberExc extends multex.Exc {
-		public EmptyPhoneNumberExc() {super(null);}
-	}
+	public static class EmptyPhoneNumberExc extends multex.Exc {}
 	
 	/**Phone number {0} contains illegal characters. Allowed are only ''{1}''*/
-	public static class PhoneNumberFormatExc extends multex.Exc {
-		public PhoneNumberFormatExc(String phoneNumber, String allowedCharacters) {
-			super(null, phoneNumber, allowedCharacters);
-		}
-	}
+	public static class PhoneNumberFormatExc extends multex.Exc {}
 	
 }

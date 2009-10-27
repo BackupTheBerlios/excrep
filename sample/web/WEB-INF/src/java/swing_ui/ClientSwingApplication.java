@@ -68,7 +68,7 @@ public class ClientSwingApplication {
 	    fieldPanel.add(firstName);
 	    fieldPanel.add(new javax.swing.JLabel("Last Name:"));
 	    fieldPanel.add(lastName);
-	    fieldPanel.add(new javax.swing.JLabel("Birth Date:"));
+	    fieldPanel.add(new javax.swing.JLabel("Birth Date (yyyy-MM-dd):"));
 	    fieldPanel.add(birthDate);
 	    fieldPanel.add(new javax.swing.JLabel("Phone Number:"));
 	    fieldPanel.add(phone);

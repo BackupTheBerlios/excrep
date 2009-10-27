@@ -3,6 +3,7 @@
  */
 package aspects;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,15 @@ import struts_ui.CentralExceptionReporter;
  * 
  */
 public aspect StrutsExceptionAspect {
+    
+
+    private static final ExceptionConfig exceptionConfig = new ExceptionConfig();
+    static { //As I cannot control the number of Aspect objects, I use a static variable exceptionConfig
+        exceptionConfig.setType("Aspect");
+        exceptionConfig.setKey(struts_ui.CentralExceptionReporter.class.getName() + ".inPageErrorMessage");
+        //exceptionConfig.setHandler(struts_ui.CentralExceptionReporter.class.getName());
+    }
+    
 	private CentralExceptionReporter centralExceptionReporter = new CentralExceptionReporter();
 
 	pointcut op(ActionMapping am, ActionForm af, HttpServletRequest req,
@@ -31,9 +41,6 @@ public aspect StrutsExceptionAspect {
 		try {
 			return proceed(am, af, req, res);
 		} catch (Exception exception) {
-			ExceptionConfig exceptionConfig = new ExceptionConfig();
-			exceptionConfig.setKey("struts_ui.CentralExceptionReporter.inPageErrorMessage");
-			exceptionConfig.setHandler("struts_ui.CentralExceptionReporter");			
 			try {
 				return centralExceptionReporter.execute(exception,
 						exceptionConfig, am, af, req, res);

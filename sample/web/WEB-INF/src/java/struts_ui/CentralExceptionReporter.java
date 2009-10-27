@@ -106,7 +106,9 @@ throws ServletException
         requestString.append('?');
         requestString.append(query);
     }
-    final StringBuffer logMessage = new StringBuffer("Exception occured when executing Struts action for request ");
+    final StringBuffer logMessage = new StringBuffer("Exception caught by ");
+    logMessage.append("Aspect".equals(ae.getType()) ? "StrutsExceptionAspect" : "struts-config.xml");
+    logMessage.append(". Occured when executing Struts action for request ");
     logMessage.append(requestString);
     logMessage.append("\n");
     final Locale defaultLocale = Locale.getDefault();

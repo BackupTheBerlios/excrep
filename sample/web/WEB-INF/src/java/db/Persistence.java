@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import lg.Client;
+import static multex.MultexUtil.create;
 import multex.Exc;
 import multex.Failure;
 
@@ -50,7 +51,7 @@ public class Persistence {
 			result = (Set<Client>)o.readObject();
 			o.close();
 		} catch (Exception e) {
-			throw new LoadFailure(e, FILENAME);
+			throw create(LoadFailure.class, e, FILENAME);
 		}
 		this.pool = result;
 	}
@@ -92,25 +93,21 @@ public class Persistence {
 
 	public void commit(){
 		logger.info("commit");
+        String filePath = FILENAME;
 		try {
-			final FileOutputStream f = new FileOutputStream(FILENAME);
+            filePath = new File(FILENAME).getCanonicalPath();
+			final FileOutputStream f = new FileOutputStream(filePath);
 			final ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeLong(lastId);
 			o.writeObject(this.pool);
 			o.close();
 		} catch (Exception e) {
-			throw new Failure("Failure committing persistence into file {0}", e, FILENAME);
+			throw new Failure("Failure committing persistence into file {0}", e, filePath);
 		}
 	}
 	
 	/**Failure loading persistence from file {0}*/
-	public static class LoadFailure extends multex.Failure {
-
-		public LoadFailure(Throwable cause, String filename) {
-			super(null, cause, filename);
-		}
-		
-	}
+	public static class LoadFailure extends multex.Failure {}
 	
 
 }
